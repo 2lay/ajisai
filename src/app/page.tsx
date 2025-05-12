@@ -1,10 +1,8 @@
+'use client';
 
-import { HydrateClient } from "~/trpc/server";
 
-export default async function Home() {
+export default function Home() {
   return (
-    <HydrateClient>
-      <p>Hello, world!</p>
-    </HydrateClient>
+      <p>Heliuhiuhlo😭, world!</p>
   );
 }

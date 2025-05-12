@@ -4,3 +4,27 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+/* Hide native emojis during loading */
+.twemoji-loading {
+  opacity: 0;
+  transition: opacity 0.1s ease-in;
+}
+
+.twemoji-loading img.emoji {
+  opacity: 1;
+}
+
+/* Twemoji Styles */
+img.emoji {
+  height: 1em !important;
+  width: 1em !important;
+  margin: 0 0.05em !important;
+  vertical-align: -0.15em !important;
+  display: inline-block !important;
+}
+
+h1 img.emoji {
+  height: 0.85em !important;
+  width: 0.85em !important;
+}
