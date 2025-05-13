@@ -2,9 +2,26 @@
 
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
+import { useEffect, useState } from "react";
+import { notFound } from "next/navigation";
+import { Navbar } from "~/components/ui/navbar/page";
 
 export default function DevPage() {
+    const [isLocalhost, setIsLocalhost] = useState(true);
+
+    useEffect(() => {
+        if (window.location.hostname !== 'localhost') {
+            setIsLocalhost(false);
+        }
+    }, []);
+
+    if (!isLocalhost) {
+        return notFound();
+    }
+
     return (
+        <>
+        <Navbar />
         <div className="p-8 space-y-8">
             <Card className="space-y-4">
                 <h2 className="text-lg font-semibold">Default Buttons</h2>
@@ -33,5 +50,6 @@ export default function DevPage() {
                 </div>
             </Card>
         </div>
+        </>
     );
 }
