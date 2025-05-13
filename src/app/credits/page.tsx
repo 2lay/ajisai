@@ -25,6 +25,11 @@ export default function Home() {
             description: "The majority of stunning base showcase images featured throughout the website",
             source: "hhttps://www.reddit.com/user/Sampsoy/submitted/?sort=top",
         },
+        {
+            creator: "Mojang AB & Microsoft Corporation",
+            description: "The Minecraft brand and assets",
+            source: "https://www.minecraft.net/en-us/credits",
+        },
     ];
     return (
         <>

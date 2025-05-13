@@ -235,7 +235,7 @@ export default function Home() {
         </div>
         <div className="bg-neutral-900 py-16 border-t border-neutral-800 rounded-t-4xl">
           <>
-            <div className="flex flex-col items-center justify-center mb-16">
+            <div className="flex flex-col items-center justify-center mb-16 ">
               <h2 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight">
                 What we offer
               </h2>
@@ -295,7 +295,7 @@ export default function Home() {
             </div>
           </>
           <>
-            <div className="mt-24 mb-16">
+            <div className="mt-24 mb-16 ">
               <div className="flex flex-col items-center justify-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight">
                   Latest News
@@ -306,7 +306,7 @@ export default function Home() {
               </div>
 
               <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60">
+                <div className="relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60 hover:border-neutral-600/80 transition-colors duration-300">
                   {/* Slideshow container */}
                   <div className="relative h-[300px]"> {/* Fixed height container */}
                     {newsItems.map((item, index) => (
@@ -377,14 +377,12 @@ export default function Home() {
                     <button
                       key={index}
                       onClick={() => goToSlide(index)}
-                      className={`relative w-12 h-1.5 rounded-full overflow-hidden transition-all duration-300 ${
-                        currentSlide === index ? 'scale-110 h-2' : ''
-                      }`}
+                      className={`relative w-12 h-1.5 rounded-full overflow-hidden transition-all duration-300 ${currentSlide === index ? 'scale-110 h-2' : ''
+                        }`}
                       aria-label={`Go to slide ${index + 1}`}
                     >
-                      <div className={`absolute inset-0 bg-white/20 hover:bg-white/30 transform transition-all duration-300 ease-in-out ${
-                        currentSlide === index ? 'bg-white/40' : ''
-                      }`} />
+                      <div className={`absolute inset-0 bg-white/20 hover:bg-white/30 transform transition-all duration-300 ease-in-out ${currentSlide === index ? 'bg-white/40' : ''
+                        }`} />
                       {currentSlide === index && (
                         <div
                           className="absolute inset-0 bg-white/70"
@@ -413,6 +411,8 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </>
+          <>
           </>
         </div>
       </div>
