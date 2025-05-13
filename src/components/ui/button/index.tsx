@@ -2,16 +2,24 @@ import { Button as HeadlessButton } from "@headlessui/react";
 import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { cn } from "~/utils/cn";
 
-type ButtonVariant = "primary" | "secondary" | "danger" | "success" | "outline";
+type ButtonVariant = "default" | "flat";
+type ButtonColor = "primary" | "secondary" | "danger" | "success" | "outline";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: ButtonVariant;
     size?: ButtonSize;
+    color?: ButtonColor;
 }
 
 const buttonStyles = {
+
     variants: {
+        default: "shadow-md transition-all duration-200 active:scale-95 hover:translate-y-[-1px] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ",
+        flat: "shadow-none transition-all duration-200 active:scale-95 hover:translate-y-[-1px] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none border-none",
+    },
+    
+    colors: {
         primary: "bg-indigo-500 hover:bg-indigo-600 border-indigo-300 focus:ring-indigo-400 text-white shadow-indigo-200",
         secondary: "bg-gray-500 hover:bg-gray-600 border-gray-300 focus:ring-gray-400 text-white shadow-gray-200",
         danger: "bg-red-500 hover:bg-red-600 border-red-300 focus:ring-red-400 text-white shadow-red-200",
@@ -22,16 +30,16 @@ const buttonStyles = {
     sizes: {
         sm: "text-sm px-3 py-1 border rounded-lg font-medium",
         md: "text-base px-5 py-2 border-2 rounded-xl font-medium", 
-        lg: "text-lg px-7 py-3 border-2 rounded-xl font-medium"
+        lg: "text-lg px-5 py-2 border-2 rounded-xl font-medium"
     }
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant = "primary", size = "md", children, ...props }, ref) => (
+    ({ className, variant = "default", color = "primary", size = "md", children, ...props }, ref) => (
         <HeadlessButton
             ref={ref}
             className={cn(
-                `shadow-md transition-all duration-200 active:scale-95 hover:translate-y-[-1px] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${buttonStyles.variants[variant]} ${buttonStyles.sizes[size]}`,
+                `${buttonStyles.variants[variant]} ${buttonStyles.colors[color]} ${buttonStyles.sizes[size]}`,
                 className
             )}
             {...props}
