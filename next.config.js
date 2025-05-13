@@ -5,6 +5,23 @@
 import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'preview.redd.it',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.discordapp.net',
+      },
+    ],
+  },
+};
 
 export default config;

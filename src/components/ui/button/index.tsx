@@ -15,16 +15,16 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const buttonStyles = {
 
     variants: {
-        default: "shadow-sm transition-all duration-200 active:scale-95 hover:translate-y-[-1px] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ",
-        flat: "shadow-none transition-all duration-200 active:scale-95 hover:translate-y-[-1px] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none border-none",
+        default: "transition-all duration-200 active:scale-95 hover:translate-y-[-1px] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ",
+        flat: "transition-all duration-200 active:scale-95 hover:translate-y-[-1px] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none border-none",
     },
     
     colors: {
-        primary: "bg-indigo-500 hover:bg-indigo-600 border-indigo-300 focus:ring-indigo-400 text-white shadow-indigo-100/50",
-        secondary: "bg-gray-500 hover:bg-gray-600 border-gray-300 focus:ring-gray-400 text-white shadow-gray-100/50",
-        danger: "bg-red-500 hover:bg-red-600 border-red-300 focus:ring-red-400 text-white shadow-red-100/50",
-        success: "bg-green-500 hover:bg-green-600 border-green-300 focus:ring-green-400 text-white shadow-green-100/50",
-        outline: "bg-white hover:bg-gray-50 border-gray-300 focus:ring-gray-400 text-gray-700 shadow-gray-100/30"
+        primary: "bg-indigo-500 hover:bg-indigo-600 border-indigo-300 focus:ring-indigo-400 text-white",
+        secondary: "bg-gray-500 hover:bg-gray-600 border-gray-300 focus:ring-gray-400 text-white",
+        danger: "bg-red-500 hover:bg-red-600 border-red-300 focus:ring-red-400 text-white",
+        success: "bg-green-500 hover:bg-green-600 border-green-300 focus:ring-green-400 text-white",
+        outline: "bg-white hover:bg-gray-50 border-gray-300 focus:ring-gray-400 text-gray-700"
     },
 
     sizes: {
