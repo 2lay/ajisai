@@ -12,17 +12,17 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const buttonStyles = {
     variants: {
-        primary: "bg-indigo-500 hover:bg-indigo-600 border-indigo-300 focus:ring-indigo-400 text-white",
-        secondary: "bg-gray-500 hover:bg-gray-600 border-gray-300 focus:ring-gray-400 text-white",
-        danger: "bg-red-500 hover:bg-red-600 border-red-300 focus:ring-red-400 text-white",
-        success: "bg-green-500 hover:bg-green-600 border-green-300 focus:ring-green-400 text-white",
-        outline: "bg-transparent hover:bg-gray-100 border-gray-300 focus:ring-gray-400 text-gray-700"
+        primary: "bg-indigo-500 hover:bg-indigo-600 border-indigo-300 focus:ring-indigo-400 text-white shadow-indigo-200",
+        secondary: "bg-gray-500 hover:bg-gray-600 border-gray-300 focus:ring-gray-400 text-white shadow-gray-200",
+        danger: "bg-red-500 hover:bg-red-600 border-red-300 focus:ring-red-400 text-white shadow-red-200",
+        success: "bg-green-500 hover:bg-green-600 border-green-300 focus:ring-green-400 text-white shadow-green-200",
+        outline: "bg-white hover:bg-gray-50 border-gray-300 focus:ring-gray-400 text-gray-700 shadow-gray-100"
     },
 
     sizes: {
-        sm: "text-sm px-3 py-1",
-        md: "text-base px-4 py-2",
-        lg: "text-lg px-6 py-3"
+        sm: "text-sm px-3 py-1 border rounded-lg font-medium",
+        md: "text-base px-5 py-2 border-2 rounded-xl font-medium", 
+        lg: "text-lg px-7 py-3 border-2 rounded-xl font-medium"
     }
 }
 
@@ -31,7 +31,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <HeadlessButton
             ref={ref}
             className={cn(
-                `font-semibold rounded-xl border-2 shadow-sm transition-colors focus:outline-none focus:ring-2 ${buttonStyles.variants[variant]} ${buttonStyles.sizes[size]}`,
+                `shadow-md transition-all duration-200 active:scale-95 hover:translate-y-[-1px] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${buttonStyles.variants[variant]} ${buttonStyles.sizes[size]}`,
+                className
             )}
             {...props}
         >

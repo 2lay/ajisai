@@ -1,29 +1,38 @@
-# Create T3 App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+> [!WARNING]  
+> This project is currently in active development. 
 
-## What's next? How do I make an app with this?
+# TMW.gg ⚡
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+The source code for our Minecraft network's website. Nothing too fancy, just a simple site built with modern web tech.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## 🎮 About
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+A website for our modded Minecraft server, browse modpacks, check server status, and join our community.
 
-## Learn More
+### Features
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+🌐 Real-time server status & player counts  
+📱 Responsive design for all devices  
+🔒 Secure authentication  
+🎨 Modern, clean interface  
+⚡ Lightning-fast performance
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## 🛠️ Tech Stack
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+Built on the powerful [T3 Stack](https://create.t3.gg), our platform leverages cutting-edge technologies:
 
-## How do I deploy this?
+- [Next.js](https://nextjs.org) - React framework
+- [Tailwind CSS](https://tailwindcss.com) - Styling
+- [Drizzle](https://orm.drizzle.team) - Database toolkit
+- [tRPC](https://trpc.io) - API Layer
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Contributing
+
+We welcome contributions! Here's how:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Submit a pull request
+
