@@ -1,6 +1,6 @@
 "use client";
 
-import { IconBrandDiscord, IconShoppingCart } from "@tabler/icons-react";
+import { IconBrandDiscord, IconChevronLeft, IconChevronRight, IconShoppingCart } from "@tabler/icons-react";
 import { IconServer } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,37 +9,51 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   // Auto-advance slides
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev === newsItems.length - 1 ? 0 : prev + 1));
     }, 5000);
-    
+
     return () => clearInterval(interval);
-  }, []);
-  
+  }, [currentSlide]); // Reset interval when slide changes
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === newsItems.length - 1 ? 0 : prev + 1));
   };
-  
+
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev === 0 ? newsItems.length - 1 : prev - 1));
   };
-  
-  const goToSlide = (index) => {
+
+  const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const features = [
     {
       title: "Discord Community",
       description: "Join thousands of players in our vibrant Discord community. Get help, share builds, and connect with friends.",
       image: "https://i.imgur.com/Lf2pyCW.png",
+      mobileImage: "https://i.imgur.com/QdaSplI.png",
       imageAlt: "Discord community preview",
       badge: {
         text: "1K+ MEMBERS",
-        color: "indigo"
+        color: "bg-indigo-400"
       },
       icon: IconBrandDiscord,
       iconColor: "text-indigo-300",
@@ -64,10 +78,11 @@ export default function Home() {
       title: "Premium Perks",
       description: "Enhance your gameplay with premium perks and exclusive in-game features to stand out from the crowd.",
       image: "https://i.imgur.com/knTubhD.jpeg",
+      mobileImage: "https://i.imgur.com/knTubhD.png",
       imageAlt: "Shop features preview",
       badge: {
         text: "EXCLUSIVE PERKS",
-        color: "blue"
+        color: "bg-blue-400"
       },
       icon: IconShoppingCart,
       iconColor: "text-blue-400",
@@ -92,10 +107,11 @@ export default function Home() {
       title: "Minecraft Servers",
       description: "Explore our collection of modded servers. From tech to vanilla+, find your perfect playground.",
       image: "https://preview.redd.it/what-200-concurrent-modded-minecraft-players-looks-like-v0-1h6zsye38bkb1.png?width=1080&crop=smart&auto=webp&s=3f5908ea32d4868384ac1ddf535860a342a67e6b",
+      mobileImage: "https://preview.redd.it/what-200-concurrent-modded-minecraft-players-looks-like-v0-1h6zsye38bkb1.png?width=1080&crop=smart&auto=webp&s=3f5908ea32d4868384ac1ddf535860a342a67e6b",
       imageAlt: "Minecraft servers preview",
       badge: {
         text: "4 ACTIVE SERVERS",
-        color: "primary"
+        color: "bg-primary-400"
       },
       icon: IconServer,
       iconColor: "text-primary-400",
@@ -117,44 +133,55 @@ export default function Home() {
       }
     }
   ];
-
   const newsItems = [
     {
       category: "Lorem Ipsum",
-      categoryColor: "gray",
+      categoryColor: "primary",
       title: "Lorem Ipsum Dolor Sit Amet",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      image: "https://via.placeholder.com/640x360",
+      image: "https://picsum.photos/200/200",
       imageAlt: "Lorem Ipsum",
       author: "Lorem Ipsum",
-      authorAvatar: "https://via.placeholder.com/50",
+      authorAvatar: "https://picsum.photos/200/200",
       date: "January 1, 2024",
       link: "/lorem-ipsum"
     },
     {
       category: "Lorem Ipsum",
-      categoryColor: "gray",
+      categoryColor: "primary",
       title: "Lorem Ipsum Dolor Sit Amet",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      image: "https://via.placeholder.com/640x360",
+      image: "https://picsum.photos/200/200",
       imageAlt: "Lorem Ipsum",
       author: "Lorem Ipsum",
-      authorAvatar: "https://via.placeholder.com/50",
+      authorAvatar: "https://picsum.photos/200/200",
       date: "January 1, 2024",
       link: "/lorem-ipsum"
     },
     {
       category: "Lorem Ipsum",
-      categoryColor: "gray",
+      categoryColor: "primary",
       title: "Lorem Ipsum Dolor Sit Amet",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      image: "https://via.placeholder.com/640x360",
+      image: "https://picsum.photos/200/200",
       imageAlt: "Lorem Ipsum",
       author: "Lorem Ipsum",
-      authorAvatar: "https://via.placeholder.com/50",
+      authorAvatar: "https://picsum.photos/200/200",
       date: "January 1, 2024",
-      link: "/lorem-ipsum",
-      isViewMore: false
+      link: "/lorem-ipsum"
+    },
+    {
+      category: "Want to see more?",
+      categoryColor: "primary",
+      title: "Check out our News page",
+      description: "Head over to our news page to stay up to date with all the latest updates and announcements from TMW.gg!",
+      image: "https://i.imgur.com/OP3ohVV.png",
+      imageAlt: "News page preview",
+      author: "TMW.gg",
+      authorAvatar: "https://github.com/tmwdotgg.png",
+      date: "News Page",
+      link: "/news",
+      isViewMore: true
     }
   ];
 
@@ -207,7 +234,7 @@ export default function Home() {
           </div>
         </div>
         <div className="bg-neutral-900 py-16 border-t border-neutral-800 rounded-t-4xl">
-        
+          <>
             <div className="flex flex-col items-center justify-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight">
                 What we offer
@@ -222,12 +249,12 @@ export default function Home() {
                   <div className={`relative flex flex-col md:flex-row ${feature.layout === 'right' ? 'md:flex-row-reverse' : ''} items-center gap-6 p-6 md:p-8`}>
                     <div className="w-full md:w-1/3 aspect-[16/9] md:aspect-[4/3] relative rounded-xl overflow-hidden">
                       <Image
-                        src={feature.image}
+                        src={isMobile ? feature.mobileImage : feature.image}
                         alt={feature.imageAlt}
                         fill
                         className="object-cover transform group-hover:scale-105 transition-transform duration-300"
                       />
-                      <div className={`absolute top-2 right-2 bg-${feature.badge.color}-400/90 px-2 py-1 rounded-md text-xs font-medium`}>
+                      <div className={`absolute top-2 right-2 ${feature.badge.color} px-2 py-1 rounded-md text-xs font-medium`}>
                         {feature.badge.text}
                       </div>
                     </div>
@@ -266,7 +293,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-        
+          </>
           <>
             <div className="mt-24 mb-16">
               <div className="flex flex-col items-center justify-center mb-12">
@@ -277,14 +304,14 @@ export default function Home() {
                   Stay updated with the latest announcements and server updates
                 </p>
               </div>
-              
+
               <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60">
                   {/* Slideshow container */}
                   <div className="relative h-[300px]"> {/* Fixed height container */}
                     {newsItems.map((item, index) => (
-                      <div 
-                        key={index} 
+                      <div
+                        key={index}
                         className={`absolute inset-0 flex flex-col md:flex-row transition-opacity duration-500 ${currentSlide === index ? 'opacity-100' : 'opacity-0'}`}
                       >
                         <div className="w-full md:w-1/2 relative">
@@ -305,7 +332,7 @@ export default function Home() {
                               {item.description}
                             </p>
                           </div>
-                          
+
                           <div className="flex items-center mt-4 pt-4 border-t border-neutral-700/60"> {/* Fixed footer */}
                             <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3">
                               <Image
@@ -333,51 +360,55 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                  
-                  {/* Slideshow controls */}
-                  <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3">
-                    {newsItems.map((_, index) => (
-                      <button 
-                        key={index}
-                        onClick={() => goToSlide(index)}
-                        className="relative w-12 h-1.5 rounded-full overflow-hidden"
-                        aria-label={`Go to slide ${index + 1}`}
-                      >
-                        <div className={`absolute inset-0 bg-white/20 hover:bg-white/30 transform transition-all duration-300 ease-in-out ${
-                          currentSlide === index ? 'bg-white/40' : ''
-                        }`} />
-                        {currentSlide === index && (
-                          <div 
-                            className="absolute inset-0 bg-white/70"
-                            style={{
-                              animation: 'slideProgress 5s linear forwards',
-                              transformOrigin: 'left',
-                            }}
-                          />
-                        )}
-                        <style jsx>{`
-                          @keyframes slideProgress {
-                            from { transform: scaleX(0); }
-                            to { transform: scaleX(1); }
-                          }
-                        `}</style>
-                      </button>
-                    ))}
-                  </div>
-                  {/* Navigation arrows */}
-                  <button 
+
+
+                </div>
+                {/* Slideshow controls with navigation arrows */}
+                <div className="mt-6 flex items-center justify-center gap-3">
+                  <button
                     onClick={prevSlide}
-                    className="absolute top-1/2 left-4 -translate-y-1/2 w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-white/90 hover:bg-black/50"
+                    className="rounded-full flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
                     aria-label="Previous slide"
                   >
-                    ←
+                    <IconChevronLeft size={16} className="text-white/90" />
                   </button>
-                  <button 
+
+                  {newsItems.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      className={`relative w-12 h-1.5 rounded-full overflow-hidden transition-all duration-300 ${
+                        currentSlide === index ? 'scale-110 h-2' : ''
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    >
+                      <div className={`absolute inset-0 bg-white/20 hover:bg-white/30 transform transition-all duration-300 ease-in-out ${
+                        currentSlide === index ? 'bg-white/40' : ''
+                      }`} />
+                      {currentSlide === index && (
+                        <div
+                          className="absolute inset-0 bg-white/70"
+                          style={{
+                            animation: 'slideProgress 5s linear forwards',
+                            transformOrigin: 'left',
+                          }}
+                        />
+                      )}
+                      <style jsx>{`
+                        @keyframes slideProgress {
+                          from { transform: scaleX(0); }
+                          to { transform: scaleX(1); }
+                        }
+                      `}</style>
+                    </button>
+                  ))}
+
+                  <button
                     onClick={nextSlide}
-                    className="absolute top-1/2 right-4 -translate-y-1/2 w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-white/90 hover:bg-black/50"
+                    className="rounded-full flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
                     aria-label="Next slide"
                   >
-                    →
+                    <IconChevronRight size={16} className="text-white/90" />
                   </button>
                 </div>
               </div>
