@@ -28,13 +28,14 @@ export default function Home() {
       clearInterval(intervalId);
     }
     const newIntervalId = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % newsItems.length);
+      setCurrentSlide((prev) => (prev === newsItems.length - 1 ? 0 : prev + 1));
     }, 5000);
     setIntervalId(newIntervalId);
   };
 
+
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % newsItems.length);
+    setCurrentSlide((prev) => (prev === newsItems.length - 1 ? 0 : prev + 1));
     startInterval();
   };
 
@@ -48,6 +49,7 @@ export default function Home() {
     startInterval();
   };
 
+
   // Auto-advance slides effect
   useEffect(() => {
     startInterval();
@@ -57,7 +59,7 @@ export default function Home() {
         clearInterval(intervalId);
       }
     };
-  }, [newsItems.length]);
+  }, []);
 
   // --- Mobile Detection Effect ---
   useEffect(() => {
@@ -165,7 +167,6 @@ export default function Home() {
   if (newsItems.length > 0) {
     newsLoaded = true;
   }
-}
 
   // --- Render ---
   return (
