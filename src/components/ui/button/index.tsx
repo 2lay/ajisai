@@ -20,8 +20,9 @@ const buttonStyles = {
     },
     
     colors: {
-        primary: "bg-indigo-500 hover:bg-indigo-600 border-indigo-300 focus:ring-indigo-400 text-white",
-        secondary: "bg-gray-500 hover:bg-gray-600 border-gray-300 focus:ring-gray-400 text-white",
+        primary: "bg-primary-500 hover:bg-primary-600 border-primary-300 focus:ring-primary-400 text-white",
+        secondary: "bg-indigo-500 hover:bg-indigo-600 border-indigo-300 focus:ring-indigo-400 text-white",
+        tertiary: "bg-gray-500 hover:bg-gray-600 border-gray-300 focus:ring-gray-400 text-white",
         danger: "bg-red-500 hover:bg-red-600 border-red-300 focus:ring-red-400 text-white",
         success: "bg-green-500 hover:bg-green-600 border-green-300 focus:ring-green-400 text-white",
         outline: "bg-white hover:bg-gray-50 border-gray-300 focus:ring-gray-400 text-gray-700"

@@ -134,13 +134,18 @@ export default function Gallery() {
 
     return (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight mb-4">
+            <div className="flex flex-col items-center justify-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight">
                     Player Showcase Gallery
                 </h2>
-                <p className="text-lg text-white/70 max-w-2xl mx-auto">
-                    Check out these amazing builds from our talented community members across our servers.
+                <p className="text-lg text-white/70 mt-2">
+                    Check out these amazing builds from our talented community members
                 </p>
+                <Button color="primary" className="mt-6">
+                    <Link href="/gallery/submit">
+                        Want to be there? Submit your base!
+                    </Link>
+                </Button>
             </div>
 
             <div className="space-y-6">
