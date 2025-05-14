@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 import { Button } from "~/components/ui/button";
+import { api } from "~/trpc/react";
 
 export default function Home() {
   // State for current news slide
@@ -20,26 +21,43 @@ export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
 
   // --- News Slider Functionality ---
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+
+  const startInterval = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+    const newIntervalId = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % newsItems.length);
+    }, 5000);
+    setIntervalId(newIntervalId);
+  };
+
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === newsItems.length - 1 ? 0 : prev + 1));
+    setCurrentSlide((prev) => (prev + 1) % newsItems.length);
+    startInterval();
   };
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev === 0 ? newsItems.length - 1 : prev - 1));
+    startInterval();
   };
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
+    startInterval();
   };
 
   // Auto-advance slides effect
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
+    startInterval();
 
-    return () => clearInterval(interval);
-  }, []); // Removed currentSlide from dependency array
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [newsItems.length]);
 
   // --- Mobile Detection Effect ---
   useEffect(() => {
@@ -140,61 +158,14 @@ export default function Home() {
     },
   ];
 
-  const newsItems = [
-    {
-      category: "Lorem Ipsum",
-      categoryColor: "primary",
-      title: "Lorem Ipsum Dolor Sit Amet",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      image: "https://picsum.photos/200/200",
-      imageAlt: "Lorem Ipsum",
-      author: "Lorem Ipsum",
-      authorAvatar: "https://picsum.photos/200/200",
-      date: "January 1, 2024",
-      link: "/lorem-ipsum",
-    },
-    {
-      category: "Lorem Ipsum",
-      categoryColor: "primary",
-      title: "Lorem Ipsum Dolor Sit Amet",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      image: "https://picsum.photos/200/200",
-      imageAlt: "Lorem Ipsum",
-      author: "Lorem Ipsum",
-      authorAvatar: "https://picsum.photos/200/200",
-      date: "January 1, 2024",
-      link: "/lorem-ipsum",
-    },
-    {
-      category: "Lorem Ipsum",
-      categoryColor: "primary",
-      title: "Lorem Ipsum Dolor Sit Amet",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      image: "https://picsum.photos/200/200",
-      imageAlt: "Lorem Ipsum",
-      author: "Lorem Ipsum",
-      authorAvatar: "https://picsum.photos/200/200",
-      date: "January 1, 2024",
-      link: "/lorem-ipsum",
-    },
-    {
-      category: "Want to see more?",
-      categoryColor: "primary",
-      title: "Check out our News page",
-      description:
-        "Head over to our news page to stay up to date with all the latest updates and announcements from TMW.gg!",
-      image: "https://i.imgur.com/OP3ohVV.png",
-      imageAlt: "News page preview",
-      author: "TMW.gg",
-      authorAvatar: "https://github.com/tmwdotgg.png",
-      date: "News Page",
-      link: "/news",
-      isViewMore: true,
-    },
-  ];
+  const { data: newsData } = api.news.getAll.useQuery();
+  const newsItems = newsData?.newsItems ?? [];
+
+  let newsLoaded = false;
+  if (newsItems.length > 0) {
+    newsLoaded = true;
+  }
+}
 
   // --- Render ---
   return (
@@ -276,9 +247,8 @@ export default function Home() {
                 className="group relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60 hover:border-neutral-600/80 transition-colors duration-300"
               >
                 <div
-                  className={`relative flex flex-col md:flex-row ${
-                    feature.layout === "right" ? "md:flex-row-reverse" : ""
-                  } items-center gap-6 p-6 md:p-8`}
+                  className={`relative flex flex-col md:flex-row ${feature.layout === "right" ? "md:flex-row-reverse" : ""
+                    } items-center gap-6 p-6 md:p-8`}
                 >
                   <div className="w-full md:w-1/3 aspect-[16/9] md:aspect-[4/3] relative rounded-xl overflow-hidden">
                     <Image
@@ -353,20 +323,58 @@ export default function Home() {
               <div className="relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60 hover:border-neutral-600/80 transition-colors duration-300">
                 {/* Slideshow container */}
                 <div className="relative h-[300px]">
-                  {/* Fixed height container */}
+                  {/* Loading placeholder */}
+                  {newsItems.length === 0 && (
+
+                    <div className="absolute inset-0 flex flex-col md:flex-row">
+                      <div className="w-full md:w-1/2 relative bg-neutral-700/50 animate-pulse">
+                        {/* Image placeholder */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-neutral-700/50 to-neutral-800/50" />
+                      </div>
+                      <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between">
+                        <div className="overflow-y-auto max-h-[320px] pr-2 space-y-4">
+                          {/* Category placeholder */}
+                          <div className="w-24 h-6 bg-neutral-700/50 rounded-full animate-pulse" />
+
+                          {/* Title placeholder */}
+                          <div className="w-3/4 h-8 bg-neutral-700/50 rounded animate-pulse" />
+
+                          {/* Description placeholder */}
+                          <div className="space-y-2">
+                            <div className="w-full h-4 bg-neutral-700/50 rounded animate-pulse" />
+                            <div className="w-5/6 h-4 bg-neutral-700/50 rounded animate-pulse" />
+                            <div className="w-4/6 h-4 bg-neutral-700/50 rounded animate-pulse" />
+                          </div>
+                        </div>
+
+                        <div className="flex items-center mt-4 pt-4 border-t border-neutral-700/60">
+                          {/* Avatar placeholder */}
+                          <div className="w-10 h-10 rounded-full bg-neutral-700/50 animate-pulse mr-3" />
+
+                          {/* Author info placeholder */}
+                          <div className="space-y-2">
+                            <div className="w-32 h-4 bg-neutral-700/50 rounded animate-pulse" />
+                            <div className="w-24 h-3 bg-neutral-700/50 rounded animate-pulse" />
+                          </div>
+
+                          {/* Button placeholder */}
+                          <div className="ml-auto w-24 h-8 bg-neutral-700/50 rounded animate-pulse" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {/* Actual content (hidden while loading) */}
                   {newsItems.map((item, index) => (
                     <div
                       key={index}
-                      className={`absolute inset-0 flex flex-col md:flex-row transition-opacity duration-500 ${
-                        currentSlide === index ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`absolute inset-0 flex flex-col md:flex-row transition-opacity duration-500 ${currentSlide === index ? "opacity-100" : "opacity-0"
+                        }`}
                     >
                       <div className="w-full md:w-1/2 relative">
                         <Image src={item.image} alt={item.imageAlt} fill className="object-cover" />
                       </div>
                       <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between">
                         <div className="overflow-y-auto max-h-[320px] pr-2">
-                          {/* Scrollable content area */}
                           <span
                             className={`inline-block px-3 py-1 text-xs font-medium bg-${item.categoryColor}-500/20 text-${item.categoryColor}-300 rounded-full mb-4`}
                           >
@@ -377,7 +385,6 @@ export default function Home() {
                         </div>
 
                         <div className="flex items-center mt-4 pt-4 border-t border-neutral-700/60">
-                          {/* Fixed footer */}
                           <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3">
                             <Image
                               src={item.authorAvatar}
@@ -407,39 +414,38 @@ export default function Home() {
               </div>
 
               {/* Slideshow controls with navigation arrows */}
-              <div className="mt-6 flex items-center justify-center gap-3">
-                <button
-                  onClick={prevSlide}
-                  className="rounded-full flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
-                  aria-label="Previous slide"
-                >
-                  <IconChevronLeft size={16} className="text-white/90" />
-                </button>
+                <div className={`animate-fade-in duration-500 ${newsLoaded ? 'opacity-100' : 'opacity-0'}`}>
+                  <div className={`mt-6 flex items-center justify-center gap-3`}>
+                    <button
+                      onClick={prevSlide}
+                      className="rounded-full flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
+                      aria-label="Previous slide"
+                    >
+                      <IconChevronLeft size={16} className="text-white/90" />
+                    </button>
 
-                {newsItems.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`relative w-12 h-1.5 rounded-full overflow-hidden transition-all duration-300 ${
-                      currentSlide === index ? "scale-110 h-2" : ""
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  >
-                    <div
-                      className={`absolute inset-0 bg-white/20 hover:bg-white/30 transform transition-all duration-300 ease-in-out ${
-                        currentSlide === index ? "bg-white/40" : ""
-                      }`}
-                    />
-                    {currentSlide === index && (
-                      <div
-                        className="absolute inset-0 bg-white/70"
-                        style={{
-                          animation: "slideProgress 5s linear forwards",
-                          transformOrigin: "left",
-                        }}
-                      />
-                    )}
-                    <style jsx>{`
+                    {newsItems.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => goToSlide(index)}
+                        className={`relative w-12 h-1.5 rounded-full overflow-hidden transition-all duration-300 ${currentSlide === index ? "scale-110 h-2" : ""
+                          }`}
+                        aria-label={`Go to slide ${index + 1}`}
+                      >
+                        <div
+                          className={`absolute inset-0 bg-white/20 hover:bg-white/30 transform transition-all duration-300 ease-in-out ${currentSlide === index ? "bg-white/40" : ""
+                            }`}
+                        />
+                        {currentSlide === index && (
+                          <div
+                            className="absolute inset-0 bg-white/70"
+                            style={{
+                              animation: "slideProgress 5s linear forwards",
+                              transformOrigin: "left",
+                            }}
+                          />
+                        )}
+                        <style jsx>{`
                       @keyframes slideProgress {
                         from {
                           transform: scaleX(0);
@@ -448,18 +454,32 @@ export default function Home() {
                           transform: scaleX(1);
                         }
                       }
+                      @keyframes fadeIn {
+                        from {
+                          opacity: 0;
+                        }
+                        to {
+                          opacity: 1;
+                        }
+                      }
+                      .animate-fade-in {
+                        animation: fadeIn 0.5s ease-in forwards;
+                      }
                     `}</style>
-                  </button>
-                ))}
+                      </button>
 
-                <button
-                  onClick={nextSlide}
-                  className="rounded-full flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
-                  aria-label="Next slide"
-                >
-                  <IconChevronRight size={16} className="text-white/90" />
-                </button>
-              </div>
+                    ))}
+
+                    <button
+                      onClick={nextSlide}
+                      className="rounded-full flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
+                      aria-label="Next slide"
+                    >
+                      <IconChevronRight size={16} className="text-white/90" />
+                    </button>
+                  </div>
+                </div>
+              
             </div>
           </div>
         </div>
