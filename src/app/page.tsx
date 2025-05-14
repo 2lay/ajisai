@@ -10,6 +10,7 @@ import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import News from "./modules/news";
 import Features from "./modules/features";
+import Gallery from "./modules/gallery";
 
 export default function Home() {
   return (
@@ -74,16 +75,23 @@ export default function Home() {
         {/* Features Section */}
         <div className="bg-neutral-900 py-16 border-t border-neutral-800 rounded-t-4xl">
           {/* Section Header */}
-         
+
 
           {/* Features List */}
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <Features />
           </div>
 
+
+
           {/* Latest News Section */}
           <div className="mt-24 mb-16 ">
             <News />
+          </div>
+
+          {/* Player Gallery Section */}
+          <div className="mt-24 mb-16">
+            <Gallery />
           </div>
         </div>
       </div>
