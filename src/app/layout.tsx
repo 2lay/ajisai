@@ -34,7 +34,8 @@ export default function RootLayout({
       <Monitoring
           apiKey="mMKMOnRHU6pIVkJ4CrhKFPg1HfB6lH8a" // Safe to expose publically
           url="https://monitoring.react-scan.com/api/v1/ingest"
-
+          // commit={process.env.GIT_COMMIT_HASH} // optional but recommended
+          // branch={process.env.GIT_BRANCH} // optional but recommended
         />
         <TwemojiProvider className="min-h-screen">
           <Navbar />
