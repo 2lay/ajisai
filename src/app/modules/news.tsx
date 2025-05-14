@@ -31,7 +31,7 @@ export default function News() {
         }
         const newIntervalId = setInterval(() => {
             setCurrentSlide((prev) => (prev === newsItems.length - 1 ? 0 : prev + 1));
-        }, 1000);
+        }, 5000);
         setIntervalId(newIntervalId);
     };
 
