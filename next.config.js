@@ -3,9 +3,14 @@
  * for Docker builds.
  */
 import "./src/env.js";
+import ReactComponentName from "react-scan/react-component-name/webpack"; 
 
 /** @type {import("next").NextConfig} */
 const config = {
+  webpack: (config) => {
+    config.plugins.push(ReactComponentName({})); 
+    return config;
+  },
   images: {
     remotePatterns: [
       {
