@@ -2,7 +2,7 @@
 
 import { Button } from "~/components/ui/button";
 import Link from "next/link";
-import { IconArrowLeft, IconBrandDiscord, IconShoppingCart, IconServer, IconHome, IconPackage } from '@tabler/icons-react';
+import { IconArrowLeft, IconBrandDiscord, IconShoppingCart, IconServer, IconHome, IconPackage, IconTrophy } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -61,6 +61,13 @@ export function Navbar() {
                             >
                                 <IconServer size={20} />
                                 <span>Servers</span>
+                            </Link>
+                            <Link 
+                                href="/servers" 
+                                className={`text-white/70 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-colors flex items-center gap-2 text-sm ${pathname === '/servers' ? 'bg-white/10 hover:bg-white/10 hover:text-white text-white border border-white/10' : ''}`}
+                            >
+                                <IconTrophy size={20} />
+                                <span>Leaderboards</span>
                             </Link>
                             <Link 
                                 href="/dev" 

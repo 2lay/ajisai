@@ -81,7 +81,7 @@ export default function News() {
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60 hover:border-neutral-600/80 transition-colors duration-300">
                         {/* Slideshow container */}
-                        <div className="relative h-[300px]">
+                        <div className="relative h-[330px]">
                             {/* Loading placeholder */}
                             {newsItems.length === 0 && (
 
@@ -133,7 +133,7 @@ export default function News() {
                                         <Image src={item.image} alt={item.imageAlt} fill className="object-cover" />
                                     </div>
                                     <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between">
-                                        <div className="overflow-y-auto max-h-[320px] pr-2">
+                                        <div className="overflow-y-auto max-h-[300px] pr-2">
                                             <span
                                                 className={`inline-block px-3 py-1 text-xs font-medium bg-${item.categoryColor}-500/20 text-${item.categoryColor}-300 rounded-full mb-4`}
                                             >
