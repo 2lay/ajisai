@@ -70,7 +70,7 @@ export default function Home() {
                         </h1>
                         <p className="text-xl md:text-2xl text-white/90 text-center max-w-2xl mx-auto font-light leading-relaxed">
                             Join our vibrant community and discover the ultimate modded 
-                            Minecraft experience with our servers
+                            Minecraft experience with our servers.
                         </p>
                         <div className="flex flex-wrap gap-6 justify-center">
                             <Button
