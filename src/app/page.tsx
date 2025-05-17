@@ -65,12 +65,12 @@ export default function Home() {
                 {/* Hero Text and Buttons */}
                 <div className="flex flex-col w-full min-h-screen">
                     <div className="relative w-full flex-1 flex flex-col items-center justify-center p-4 space-y-8">
-                        <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70 tracking-tighter">
+                        <h1 className="z-100 text-6xl sm:text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/70 tracking-tight pb-2">
                             TMW.gg
                         </h1>
                         <p className="text-xl md:text-2xl text-white/90 text-center max-w-2xl mx-auto font-light leading-relaxed">
-                            Experience Modded Minecraft like never before with our carefully
-                            curated selection of modpacks and servers
+                            Join our vibrant community and discover the ultimate modded 
+                            Minecraft experience with our servers
                         </p>
                         <div className="flex flex-wrap gap-6 justify-center">
                             <Button
