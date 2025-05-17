@@ -16,7 +16,7 @@ export default function Home() {
             source: "https://wallpapers.com/wallpapers/piled-minecraft-diamonds-clpr2cz2tuxlyjxs.html",
         },
         {
-            creator: "scratchist",
+            creator: "scratchist", 
             description: "Screenshot showcasing 200+ players simultaneously connected to a modded Minecraft server",
             source: "https://www.reddit.com/r/Minecraft/comments/1360111/what_200_concurrent_modded_minecraft_players/",
         },
@@ -27,12 +27,12 @@ export default function Home() {
         },
         {
             creator: "Mojang AB & Microsoft Corporation",
-            description: "The Minecraft brand and assets",
+            description: "The Minecraft brand and assets", 
             source: "https://www.minecraft.net/en-us/credits",
         },
     ];
     return (
-        <>
+        <div className="min-h-screen flex flex-col">
             <div className="fixed inset-0 -z-10">
                 <Image
                     src="https://preview.redd.it/neo-caelestia-gt-nh-endgame-base-tour-v0-2kxqgniwpxla1.png?width=1080&crop=smart&auto=webp&s=e43c39b020a03c820c13901b140108f064361207"
@@ -45,7 +45,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-black/50" />
             </div>
-            <div className="absolute inset-0 flex items-center justify-center p-4">
+            <div className="flex-grow flex items-center justify-center p-4">
                 <Card variant="translucent" className="w-full md:w-3/4 lg:w-1/2 p-4 md:p-6">
                     <h2 className="text-xl md:text-2xl font-bold mb-4 text-white text-center">Credits & Attributions</h2>
                     <p className="text-xs md:text-sm text-gray-300 mb-4 text-center">This page acknowledges the creators and contributors whose work appears on our website. If you identify any attribution errors or wish to request removal, please reach out to us at credits@tmw.gg.</p>
@@ -70,6 +70,6 @@ export default function Home() {
                     </div>
                 </Card>
             </div>
-        </>
+        </div>
     );
 }

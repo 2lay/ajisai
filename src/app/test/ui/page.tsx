@@ -4,7 +4,7 @@ import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { useEffect, useState } from "react";
 import { notFound } from "next/navigation";
-import { Navbar } from "~/components/ui/navbar/page";
+import { Navbar } from "~/components/ui/navbar";
 
 export default function DevPage() {
  

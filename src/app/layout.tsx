@@ -5,7 +5,7 @@ import { Geist } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { TwemojiProvider } from "~/components/providers/twemoji";
-import { Navbar } from "~/components/ui/navbar/page";
+import { Navbar } from "~/components/ui/navbar";
 import Script from "next/script";
 import { Monitoring } from "react-scan/monitoring/next"; // Import this first before React
 import Footer from "~/components/ui/footer";

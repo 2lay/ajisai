@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
-import { Navbar } from "~/components/ui/navbar/page";
+import { Navbar } from "~/components/ui/navbar";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 

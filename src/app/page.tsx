@@ -19,17 +19,17 @@ import Gallery from "./modules/gallery";
 
 const staff = [
     {
-        name: "Ellie",
-        role: "Owner",
-        image: "https://mc-heads.net/avatar/2lay",
-        description: "Leading the team and keeping the servers running smoothly since 2022",
-        color: "text-[#ff6d6d]",
-    },
-    {
         name: "Gamer12209",
         role: "Administrator",
         image: "https://mc-heads.net/avatar/Gamer12209",
         description: "A dedicated administrator focused on community support",
+        color: "text-[#ff6d6d]",
+    },
+    {
+        name: "Ellie",
+        role: "Owner",
+        image: "https://mc-heads.net/avatar/2lay",
+        description: "Leading the team and keeping the servers running smoothly since 2022",
         color: "text-[#ff6d6d]",
     },
     {
