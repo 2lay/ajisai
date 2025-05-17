@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
+import Footer from "~/components/ui/footer";
 
 export default function Home() {
 
@@ -70,6 +71,7 @@ export default function Home() {
                     </div>
                 </Card>
             </div>
+            <Footer className="rounded-t-3xl" />
         </div>
     );
 }

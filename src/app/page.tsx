@@ -15,6 +15,7 @@ import { Button } from "~/components/ui/button";
 import News from "./modules/news";
 import Features from "./modules/features";
 import Gallery from "./modules/gallery";
+import Footer from "~/components/ui/footer";
 
 
 const staff = [
@@ -242,6 +243,9 @@ export default function Home() {
                     </div>
 
                 </div>
+            </div>
+            <div className="bg-neutral-900 ">
+                <Footer/>
             </div>
         </>
     );

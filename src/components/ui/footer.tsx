@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { IconBrandDiscord, IconBrandGithub, IconBrandTwitter } from "@tabler/icons-react";
 
-export default function Footer() {
+export default function Footer({ className }: { className?: string }) {
     return (
-        <div className="bg-neutral-900 relative">
+        <div className=" relative">
             {/* Main Background Image */}
             <div className="absolute inset-0 z-10 overflow-hidden rounded-3xl">
                 <Image
@@ -64,6 +64,11 @@ export default function Footer() {
                                 <li>
                                     <Link href="/rules" className="text-sm text-white/70 hover:text-white transition-colors">
                                         Rules
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/credits" className="text-sm text-white/70 hover:text-white transition-colors">
+                                        Credits
                                     </Link>
                                 </li>
                             </ul>

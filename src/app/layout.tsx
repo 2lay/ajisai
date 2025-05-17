@@ -42,7 +42,6 @@ export default function RootLayout({
         <TwemojiProvider className="min-h-screen">
           <Navbar />
           <TRPCReactProvider>{children}</TRPCReactProvider>
-          <Footer />
         </TwemojiProvider>
       </body>
     </html>
