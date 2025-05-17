@@ -25,3 +25,18 @@ export const posts = createTable(
   }),
   (t) => [index("name_idx").on(t.name)],
 );
+
+export const news = createTable("news", (d) => ({
+  id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+  title: d.varchar({ length: 256 }),
+  description: d.text(),
+  image: d.varchar({ length: 256 }),
+  imageAlt: d.varchar({ length: 256 }),
+  author: d.varchar({ length: 256 }),
+  authorAvatar: d.varchar({ length: 256 }),
+  createdAt: d.timestamp({ withTimezone: true }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+  category: d.varchar({ length: 256 }),
+  categoryColor: d.varchar({ length: 256 }),
+  slug: d.varchar({ length: 256 }),
+  isViewMore: d.boolean().default(false),
+}));

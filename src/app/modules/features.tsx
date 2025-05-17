@@ -7,26 +7,13 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
 import { Button } from "~/components/ui/button";
-import { api } from "~/trpc/react";
+import { useIsMobile } from "~/hooks/useIsMobile";
 
 export default function Home() {
-    // State for mobile detection
-    const [isMobile, setIsMobile] = useState(false);
-
-    // --- Mobile Detection Effect ---
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-
-        checkMobile();
-        window.addEventListener("resize", checkMobile);
-
-        return () => window.removeEventListener("resize", checkMobile);
-    }, []);
+    // Use custom hook for mobile detection
+    const isMobile = useIsMobile();
 
     // --- Data Definitions ---
     const features = [
@@ -119,82 +106,82 @@ export default function Home() {
         <>
             {/* Features Section */}
     
-                {/* Section Header */}
-                <div className="flex flex-col items-center justify-center mb-16 ">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight">
-                        What we offer
-                    </h2>
-                    <p className="text-lg text-white/70 mt-2">
-                        Discover our collection of unique modded Minecraft experiences.
-                    </p>
-                </div>
+            {/* Section Header */}
+            <div className="flex flex-col items-center justify-center mb-16 ">
+                <h2 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight">
+                    What we offer
+                </h2>
+                <p className="text-lg text-white/70 mt-2">
+                    Discover our collection of unique modded Minecraft experiences.
+                </p>
+            </div>
 
-                {/* Features List */}
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-                    {features.map((feature, index) => (
+            {/* Features List */}
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                {features.map((feature, index) => (
+                    <div
+                        key={index}
+                        className="group relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60 hover:border-neutral-600/80 transition-colors duration-300"
+                    >
                         <div
-                            key={index}
-                            className="group relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60 hover:border-neutral-600/80 transition-colors duration-300"
+                            className={`relative flex flex-col md:flex-row ${feature.layout === "right" ? "md:flex-row-reverse" : ""
+                                } items-center gap-6 p-6 md:p-8`}
                         >
-                            <div
-                                className={`relative flex flex-col md:flex-row ${feature.layout === "right" ? "md:flex-row-reverse" : ""
-                                    } items-center gap-6 p-6 md:p-8`}
-                            >
-                                <div className="w-full md:w-1/3 aspect-[16/9] md:aspect-[4/3] relative rounded-xl overflow-hidden">
-                                    <Image
-                                        src={isMobile ? feature.mobileImage : feature.image}
-                                        alt={feature.imageAlt}
-                                        fill
-                                        className="object-cover transform group-hover:scale-105 transition-transform duration-300"
-                                    />
+                            <div className="w-full md:w-1/3 aspect-[16/9] md:aspect-[4/3] relative rounded-xl overflow-hidden">
+                                <Image
+                                    src={isMobile ? feature.mobileImage : feature.image}
+                                    alt={feature.imageAlt}
+                                    fill
+                                    className="object-cover transform group-hover:scale-105 transition-transform duration-300"
+                                />
+                                <div
+                                    className={`absolute top-2 right-2 ${feature.badge.color} px-2 py-1 rounded-md text-xs font-medium`}
+                                >
+                                    {feature.badge.text}
+                                </div>
+                            </div>
+                            <div className="flex-1 space-y-4 text-center md:text-left">
+                                <div>
+                                    <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
+                                        <feature.icon className={`w-7 h-7 ${feature.iconColor}`} />
+                                        <h3 className="text-2xl font-bold text-white">
+                                            {feature.title}
+                                        </h3>
+                                    </div>
+                                    <p className="text-lg text-white/80 mb-4">{feature.description}</p>
+
                                     <div
-                                        className={`absolute top-2 right-2 ${feature.badge.color} px-2 py-1 rounded-md text-xs font-medium`}
+                                        className={`flex flex-wrap justify-center md:justify-start items-center gap-4 ${feature.colors.text} mb-5`}
                                     >
-                                        {feature.badge.text}
+                                        {feature.benefits.map((benefit, benefitIndex) => (
+                                            <div key={benefitIndex} className="flex items-center gap-2">
+                                                <div className={`w-2 h-2 ${feature.colors.dot} rounded-full`}></div>
+                                                <span>{benefit}</span>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
-                                <div className="flex-1 space-y-4 text-center md:text-left">
-                                    <div>
-                                        <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
-                                            <feature.icon className={`w-7 h-7 ${feature.iconColor}`} />
-                                            <h3 className="text-2xl font-bold text-white">
-                                                {feature.title}
-                                            </h3>
-                                        </div>
-                                        <p className="text-lg text-white/80 mb-4">{feature.description}</p>
 
-                                        <div
-                                            className={`flex flex-wrap justify-center md:justify-start items-center gap-4 ${feature.colors.text} mb-5`}
+                                <div className="flex justify-center md:justify-start">
+                                    <Button
+                                        variant="default"
+                                        size="lg"
+                                        className={`transition-all duration-300 font-medium ${feature.button.className}`}
+                                    >
+                                        <Link
+                                            href={feature.button.href}
+                                            className="flex items-center gap-3"
                                         >
-                                            {feature.benefits.map((benefit, benefitIndex) => (
-                                                <div key={benefitIndex} className="flex items-center gap-2">
-                                                    <div className={`w-2 h-2 ${feature.colors.dot} rounded-full`}></div>
-                                                    <span>{benefit}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    <div className="flex justify-center md:justify-start">
-                                        <Button
-                                            variant="default"
-                                            size="lg"
-                                            className={`transition-all duration-300 font-medium ${feature.button.className}`}
-                                        >
-                                            <Link
-                                                href={feature.button.href}
-                                                className="flex items-center gap-3"
-                                            >
-                                                <feature.button.icon size={20} />
-                                                {feature.button.text}
-                                            </Link>
-                                        </Button>
-                                    </div>
+                                            <feature.button.icon size={20} />
+                                            {feature.button.text}
+                                        </Link>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
+            </div>
         </>
     );
 }

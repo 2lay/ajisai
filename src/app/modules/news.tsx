@@ -1,12 +1,9 @@
 "use client";
 
-import {
-    IconChevronLeft,
-    IconChevronRight,
-} from "@tabler/icons-react";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "~/components/ui/button";
 import { api } from "~/trpc/react";
@@ -30,18 +27,24 @@ export default function News() {
             clearInterval(intervalId);
         }
         const newIntervalId = setInterval(() => {
-            setCurrentSlide((prev) => (prev === newsItems.length - 1 ? 0 : prev + 1));
+            setCurrentSlide((
+                prev,
+            ) => (prev === newsItems.length - 1 ? 0 : prev + 1));
         }, 5000);
         setIntervalId(newIntervalId);
     };
 
     const nextSlide = () => {
-        setCurrentSlide((prev) => (prev === newsItems.length - 1 ? 0 : prev + 1));
+        setCurrentSlide((
+            prev,
+        ) => (prev === newsItems.length - 1 ? 0 : prev + 1));
         startInterval();
     };
 
     const prevSlide = () => {
-        setCurrentSlide((prev) => (prev === 0 ? newsItems.length - 1 : prev - 1));
+        setCurrentSlide((
+            prev,
+        ) => (prev === 0 ? newsItems.length - 1 : prev - 1));
         startInterval();
     };
 
@@ -73,7 +76,8 @@ export default function News() {
                         Latest News
                     </h2>
                     <p className="text-lg text-white/70 mt-2">
-                        Stay updated with the latest announcements and server updates
+                        Stay updated with the latest announcements and server
+                        updates
                     </p>
                 </div>
 
@@ -84,7 +88,6 @@ export default function News() {
                         <div className="relative h-[330px]">
                             {/* Loading placeholder */}
                             {newsItems.length === 0 && (
-
                                 <div className="absolute inset-0 flex flex-col md:flex-row">
                                     <div className="w-full md:w-1/2 relative bg-neutral-700/50 animate-pulse">
                                         {/* Image placeholder */}
@@ -126,11 +129,19 @@ export default function News() {
                             {newsItems.map((item, index) => (
                                 <div
                                     key={index}
-                                    className={`absolute inset-0 flex flex-col md:flex-row transition-opacity duration-500 ${currentSlide === index ? "opacity-100" : "opacity-0"
-                                        }`}
+                                    className={`absolute inset-0 flex flex-col md:flex-row transition-opacity duration-500 ${
+                                        currentSlide === index
+                                            ? "opacity-100"
+                                            : "opacity-0"
+                                    }`}
                                 >
                                     <div className="w-full md:w-1/2 relative">
-                                        <Image src={item.image} alt={item.imageAlt} fill className="object-cover" />
+                                        <Image
+                                            src={item.image ?? ''}
+                                            alt={item.imageAlt ?? ''}
+                                            fill
+                                            className="object-cover"
+                                        />
                                     </div>
                                     <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between">
                                         <div className="overflow-y-auto max-h-[300px] pr-2">
@@ -139,30 +150,43 @@ export default function News() {
                                             >
                                                 {item.category}
                                             </span>
-                                            <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
-                                            <p className="text-white/80 mb-6">{item.description}</p>
+                                            <h3 className="text-2xl font-bold text-white mb-3">
+                                                {item.title}
+                                            </h3>
+                                            <p className="text-white/80 mb-6">
+                                                {item.description}
+                                            </p>
                                         </div>
 
                                         <div className="flex items-center mt-4 pt-4 border-t border-neutral-700/60">
                                             <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3">
                                                 <Image
-                                                    src={item.authorAvatar}
+                                                    src={item.authorAvatar ?? ''}
                                                     alt={`${item.author} avatar`}
                                                     fill
                                                     className="object-cover"
                                                 />
                                             </div>
                                             <div>
-                                                <p className="text-white font-medium">{item.author}</p>
-                                                <p className="text-white/60 text-sm">{item.date}</p>
+                                                <p className="text-white font-medium">
+                                                    {item.author}
+                                                </p>
+                                                <p className="text-white/60 text-sm">
+                                                    {item.date}
+                                                </p>
                                             </div>
                                             <Button
                                                 variant="default"
                                                 size="sm"
                                                 className={`ml-auto bg-${item.categoryColor}-500/20 hover:bg-${item.categoryColor}-500/30 text-${item.categoryColor}-300 border border-${item.categoryColor}-500/40`}
                                             >
-                                                <Link href={item.link} className="flex items-center">
-                                                    {item.isViewMore ? "View All News" : "Read More"}
+                                                <Link
+                                                    href={item.link}
+                                                    className="flex items-center"
+                                                >
+                                                    {item.isViewMore
+                                                        ? "View All News"
+                                                        : "Read More"}
                                                 </Link>
                                             </Button>
                                         </div>
@@ -173,38 +197,55 @@ export default function News() {
                     </div>
 
                     {/* Slideshow controls with navigation arrows */}
-                    <div className={`animate-fade-in duration-500 ${newsLoaded ? 'opacity-100' : 'opacity-0'}`}>
-                        <div className={`mt-6 flex items-center justify-center gap-3`}>
+                    <div
+                        className={`animate-fade-in duration-500 ${
+                            newsLoaded ? "opacity-100" : "opacity-0"
+                        }`}
+                    >
+                        <div
+                            className={`mt-6 flex items-center justify-center gap-3`}
+                        >
                             <button
                                 onClick={prevSlide}
                                 className="rounded-full flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
                                 aria-label="Previous slide"
                             >
-                                <IconChevronLeft size={16} className="text-white/90" />
+                                <IconChevronLeft
+                                    size={16}
+                                    className="text-white/90"
+                                />
                             </button>
 
                             {newsItems.map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => goToSlide(index)}
-                                    className={`relative w-12 h-1.5 rounded-full overflow-hidden transition-all duration-300 ${currentSlide === index ? "scale-110 h-2" : ""
-                                        }`}
+                                    className={`relative w-12 h-1.5 rounded-full overflow-hidden transition-all duration-300 ${
+                                        currentSlide === index
+                                            ? "scale-110 h-2"
+                                            : ""
+                                    }`}
                                     aria-label={`Go to slide ${index + 1}`}
                                 >
                                     <div
-                                        className={`absolute inset-0 bg-white/20 hover:bg-white/30 transform transition-all duration-300 ease-in-out ${currentSlide === index ? "bg-white/40" : ""
-                                            }`}
+                                        className={`absolute inset-0 bg-white/20 hover:bg-white/30 transform transition-all duration-300 ease-in-out ${
+                                            currentSlide === index
+                                                ? "bg-white/40"
+                                                : ""
+                                        }`}
                                     />
                                     {currentSlide === index && (
                                         <div
                                             className="absolute inset-0 bg-white/70"
                                             style={{
-                                                animation: "slideProgress 5s linear forwards",
+                                                animation:
+                                                    "slideProgress 5s linear forwards",
                                                 transformOrigin: "left",
                                             }}
                                         />
                                     )}
-                                    <style jsx>{`
+                                    <style jsx>
+                                        {`
                       @keyframes slideProgress {
                         from {
                           transform: scaleX(0);
@@ -224,9 +265,9 @@ export default function News() {
                       .animate-fade-in {
                         animation: fadeIn 0.5s ease-in forwards;
                       }
-                    `}</style>
+                    `}
+                                    </style>
                                 </button>
-
                             ))}
 
                             <button
@@ -234,11 +275,13 @@ export default function News() {
                                 className="rounded-full flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
                                 aria-label="Next slide"
                             >
-                                <IconChevronRight size={16} className="text-white/90" />
+                                <IconChevronRight
+                                    size={16}
+                                    className="text-white/90"
+                                />
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </>
