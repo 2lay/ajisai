@@ -24,22 +24,22 @@ export default function DevPage({ children }: { children: React.ReactNode }) {
         <>
             <div className="min-h-screen bg-gradient-to-br from-neutral-900 to-neutral-800">
                 <div className="p-4 flex gap-x-4">
-                    <Button 
-                        color="primary"
-                        size="lg"
-                    >
-                        <Link href="/">
+                    <Link href="/">
+                        <Button
+                            color="primary"
+                            size="lg"
+                        >
                             Back to Index
-                        </Link>
-                    </Button>
-                    <Button 
-                        color="secondary"
-                        size="lg"
-                    >
-                        <Link href="/test">
+                        </Button>
+                    </Link>
+                    <Link href="/test">
+                        <Button
+                            color="secondary"
+                            size="lg"
+                        >
                             Back to Index Testing Page
-                        </Link>
-                    </Button>
+                        </Button>
+                    </Link>
                 </div>
                 {children}
             </div>
