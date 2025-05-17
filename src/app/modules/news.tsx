@@ -108,32 +108,32 @@ export default function News() {
     return (
         <>
             {/* Latest News Section */}
-            <div className="mt-24 mb-16 ">
+            <div className="mt-12 md:mt-24 mb-8 md:mb-16">
                 {/* Section Header */}
-                <div className="flex flex-col items-center justify-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight">
+                <div className="flex flex-col items-center justify-center mb-8 md:mb-12 px-4">
+                    <h2 className="text-2xl md:text-4xl font-bold text-white/90 tracking-tight text-center">
                         Latest News
                     </h2>
-                    <p className="text-lg text-white/70 mt-2">
+                    <p className="text-base md:text-lg text-white/70 mt-2 text-center">
                         Stay updated with the latest announcements and server
                         updates
                     </p>
                 </div>
 
                 {/* News Slider */}
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60 hover:border-neutral-600/80 transition-colors duration-300">
+                <div className="max-w-5xl mx-auto">
+                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60 hover:border-neutral-600/80 transition-colors duration-300">
                         {/* Slideshow container */}
-                        <div className="relative h-[330px]">
+                        <div className="relative h-full min-h-[340px]">
                             {/* Loading placeholder */}
                             {newsItems.length === 0 && (
                                 <div className="absolute inset-0 flex flex-col md:flex-row">
-                                    <div className="w-full md:w-1/2 relative bg-neutral-700/50 animate-pulse">
+                                    <div className="h-48 md:h-auto w-full md:w-1/2 relative bg-neutral-700/50 animate-pulse">
                                         {/* Image placeholder */}
                                         <div className="absolute inset-0 bg-gradient-to-br from-neutral-700/50 to-neutral-800/50" />
                                     </div>
-                                    <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between">
-                                        <div className="overflow-y-auto max-h-[320px] pr-2 space-y-4">
+                                    <div className="w-full md:w-1/2 p-4 md:p-6 flex flex-col justify-between">
+                                        <div className="overflow-y-auto max-h-[280px] pr-2 space-y-4">
                                             {/* Category placeholder */}
                                             <div className="w-24 h-6 bg-neutral-700/50 rounded-full animate-pulse" />
 
@@ -150,7 +150,7 @@ export default function News() {
 
                                         <div className="flex items-center mt-4 pt-4 border-t border-neutral-700/60">
                                             {/* Avatar placeholder */}
-                                            <div className="w-10 h-10 rounded-full bg-neutral-700/50 animate-pulse mr-3" />
+                                            <div className="w-8 md:w-10 h-8 md:h-10 rounded-full bg-neutral-700/50 animate-pulse mr-3" />
 
                                             {/* Author info placeholder */}
                                             <div className="space-y-2">
@@ -174,7 +174,7 @@ export default function News() {
                                             : "opacity-0"
                                     }`}
                                 >
-                                    <div className="w-full md:w-1/2 relative">
+                                    <div className="h-48 md:h-auto w-full md:w-1/2 relative">
                                         <Image
                                             src={item.image ?? ''}
                                             alt={item.imageAlt ?? ''}
@@ -182,23 +182,23 @@ export default function News() {
                                             className="object-cover"
                                         />
                                     </div>
-                                    <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between">
+                                    <div className="w-full md:w-1/2 p-4 md:p-8 flex flex-col justify-between">
                                         <div className="overflow-y-auto max-h-[300px] pr-2">
                                             <span
-                                                className={`inline-block px-3 py-1 text-xs font-medium bg-${item.categoryColor}-500/20 text-${item.categoryColor}-300 rounded-full mb-4`}
+                                                className={`inline-block px-3 py-1 text-xs font-medium bg-${item.categoryColor}-500/20 text-${item.categoryColor}-300 rounded-full mb-3 md:mb-4`}
                                             >
                                                 {item.category}
                                             </span>
-                                            <h3 className="text-2xl font-bold text-white mb-3">
+                                            <h3 className="text-xl md:text-2xl font-bold text-white mb-2 md:mb-3">
                                                 {item.title}
                                             </h3>
-                                            <p className="text-white/80 mb-6">
+                                            <p className="text-sm md:text-base text-white/80 mb-4 md:mb-6">
                                                 {item.description}
                                             </p>
                                         </div>
 
                                         <div className="flex items-center mt-4 pt-4 border-t border-neutral-700/60">
-                                            <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3">
+                                            <div className="relative w-8 md:w-10 h-8 md:h-10 rounded-full overflow-hidden mr-3">
                                                 <Image
                                                     src={item.authorAvatar ?? ''}
                                                     alt={`${item.author} avatar`}
@@ -207,17 +207,17 @@ export default function News() {
                                                 />
                                             </div>
                                             <div>
-                                                <p className="text-white font-medium">
+                                                <p className="text-sm md:text-base text-white font-medium">
                                                     {item.author}
                                                 </p>
-                                                <p className="text-white/60 text-sm">
+                                                <p className="text-xs md:text-sm text-white/60">
                                                     {item.date}
                                                 </p>
                                             </div>
                                             <Button
                                                 variant="default"
                                                 size="sm"
-                                                className={`ml-auto bg-${item.categoryColor}-500/20 hover:bg-${item.categoryColor}-500/30 text-${item.categoryColor}-300 border border-${item.categoryColor}-500/40`}
+                                                className={`ml-auto bg-${item.categoryColor}-500/20 hover:bg-${item.categoryColor}-500/30 text-${item.categoryColor}-300 border border-${item.categoryColor}-500/40 text-xs md:text-sm`}
                                             >
                                                 <Link
                                                     href={item.link}
@@ -242,15 +242,15 @@ export default function News() {
                         }`}
                     >
                         <div
-                            className={`mt-6 flex items-center justify-center gap-3`}
+                            className={`mt-4 md:mt-6 flex items-center justify-center gap-2 md:gap-3`}
                         >
                             <button
                                 onClick={prevSlide}
-                                className="rounded-full flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
+                                className="rounded-full p-1 md:p-2 flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
                                 aria-label="Previous slide"
                             >
                                 <IconChevronLeft
-                                    size={16}
+                                    size={14}
                                     className="text-white/90"
                                 />
                             </button>
@@ -259,7 +259,7 @@ export default function News() {
                                 <button
                                     key={index}
                                     onClick={() => goToSlide(index)}
-                                    className={`relative w-12 h-1.5 rounded-full overflow-hidden transition-all duration-300 ${
+                                    className={`relative w-8 md:w-12 h-1.5 rounded-full overflow-hidden transition-all duration-300 ${
                                         currentSlide === index
                                             ? "scale-110 h-2"
                                             : ""
@@ -311,11 +311,11 @@ export default function News() {
 
                             <button
                                 onClick={nextSlide}
-                                className="rounded-full flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
+                                className="rounded-full p-1 md:p-2 flex items-center justify-center text-white/90 hover:bg-black/20 z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
                                 aria-label="Next slide"
                             >
                                 <IconChevronRight
-                                    size={16}
+                                    size={14}
                                     className="text-white/90"
                                 />
                             </button>

@@ -1,15 +1,18 @@
 import { Button as HeadlessButton } from "@headlessui/react";
+import Link from "next/link";
 import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { cn } from "~/utils/cn";
 
 type ButtonVariant = "default" | "flat";
 type ButtonColor = "primary" | "secondary" | "danger" | "success" | "outline";
 type ButtonSize = "sm" | "md" | "lg";
+type ButtonLink = string;
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: ButtonVariant;
     size?: ButtonSize;
     color?: ButtonColor;
+    link?: ButtonLink;
 }
 
 const buttonStyles = {
@@ -36,7 +39,7 @@ const buttonStyles = {
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant = "default", color = "primary", size = "md", children, ...props }, ref) => (
+    ({ className, variant = "default", color = "primary", size = "md", children, link, ...props }, ref) => (
         <HeadlessButton
             ref={ref}
             className={cn(
@@ -45,7 +48,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             )}
             {...props}
         >
-            {children}
+            {link ? <Link href={link}>{children}</Link> : children}
         </HeadlessButton>
     )
 );
