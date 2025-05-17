@@ -40,3 +40,14 @@ export const news = createTable("news", (d) => ({
   slug: d.varchar({ length: 256 }),
   isViewMore: d.boolean().default(false),
 }));
+
+export const gallery = createTable("gallery", (d) => ({
+  id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+  image: d.varchar({ length: 256 }),
+  title: d.varchar({ length: 256 }),
+  username: d.varchar({ length: 256 }), 
+  description: d.text(),
+  server: d.varchar({ length: 256 }),
+  createdAt: d.timestamp({ withTimezone: true }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+  updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+}));

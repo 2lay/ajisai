@@ -16,13 +16,50 @@ interface PlayerBuild {
     server: string;
 }
 
+// Cache key for local storage
+const GALLERY_CACHE_KEY = 'gallery_data';
 
 export default function Gallery() {
-const { data: galleryData } = api.gallery.getBuilds.useQuery();
-const playerBuilds = galleryData?.builds ?? [];
+    const { data: galleryData } = api.gallery.getBuilds.useQuery();
+    const [cachedBuilds, setCachedBuilds] = useState<PlayerBuild[]>([]);
     const [selectedBuild, setSelectedBuild] = useState<PlayerBuild | null>(null);
     const [autoPlay, setAutoPlay] = useState(true);
     const [isChanging, setIsChanging] = useState(false);
+
+    // Load cached data on mount and update when new data arrives
+    useEffect(() => {
+        // Try to load from cache first
+        const cached = localStorage.getItem(GALLERY_CACHE_KEY);
+        if (cached) {
+            const parsedCache = JSON.parse(cached) as PlayerBuild[];
+            // Only use cache if no new data
+            if (!galleryData?.builds) {
+                setCachedBuilds(parsedCache);
+            }
+        }
+
+        // Always prioritize new data when available
+        if (galleryData?.builds) {
+            setCachedBuilds(galleryData.builds as unknown as PlayerBuild[]);
+            localStorage.setItem(GALLERY_CACHE_KEY, JSON.stringify(galleryData.builds));
+            // Update selected build if it exists in new data
+            if (selectedBuild) {
+                const updatedBuild = galleryData.builds.find(b => b.id === selectedBuild.id);
+                if (updatedBuild && (
+                    updatedBuild.imageUrl !== selectedBuild.imageUrl ||
+                    updatedBuild.title !== selectedBuild.title ||
+                    updatedBuild.description !== selectedBuild.description ||
+                    updatedBuild.username !== selectedBuild.username ||
+                    updatedBuild.server !== selectedBuild.server
+                )) {
+                    setSelectedBuild(updatedBuild as unknown as PlayerBuild);
+                }
+            }
+        }
+    }, [galleryData, selectedBuild]);
+
+    // Use cached builds instead of directly using galleryData
+    const playerBuilds = cachedBuilds;
 
     // Set initial selected build when data loads
     useEffect(() => {
@@ -120,7 +157,27 @@ const playerBuilds = galleryData?.builds ?? [];
 
 function GalleryImages({ selectedBuild, setSelectedBuild, handlePrevSlide, handleNextSlide, isChanging, handleBuildSelect }: { selectedBuild: PlayerBuild | null, setSelectedBuild: (build: PlayerBuild | null) => void, handlePrevSlide: () => void, handleNextSlide: () => void, isChanging: boolean, handleBuildSelect: (build: PlayerBuild) => void }) {
     const { data: galleryData } = api.gallery.getBuilds.useQuery();
-    const playerBuilds = galleryData?.builds ?? [];
+    const [cachedBuilds, setCachedBuilds] = useState<PlayerBuild[]>([]);
+
+    // Load cached data on mount and update when new data arrives
+    useEffect(() => {
+        const cached = localStorage.getItem(GALLERY_CACHE_KEY);
+        if (cached) {
+            const parsedCache = JSON.parse(cached) as PlayerBuild[];
+            // Only use cache if no new data
+            if (!galleryData?.builds) {
+                setCachedBuilds(parsedCache);
+            }
+        }
+
+        if (galleryData?.builds) {
+            setCachedBuilds(galleryData.builds as unknown as PlayerBuild[]);
+            localStorage.setItem(GALLERY_CACHE_KEY, JSON.stringify(galleryData.builds));
+        }
+    }, [galleryData]);
+
+    const playerBuilds = cachedBuilds;
+
     if (!playerBuilds.length) {
         return (
             <div className="space-y-6">
@@ -166,9 +223,10 @@ function GalleryImages({ selectedBuild, setSelectedBuild, handlePrevSlide, handl
                     src={selectedBuild.imageUrl}
                     alt={selectedBuild.title}
                     fill
-                    className="object-cover transition-opacity duration-500"
+                    className={`object-cover transition-opacity duration-500 ${isChanging ? 'opacity-0' : 'opacity-100'}`}
                     sizes="(max-width: 1200px) 100vw, 1200px"
                     priority
+                    key={selectedBuild.id + selectedBuild.imageUrl} // Force re-render when image changes
                 />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
@@ -226,6 +284,7 @@ function GalleryImages({ selectedBuild, setSelectedBuild, handlePrevSlide, handl
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                         sizes="(max-width: 768px) 50vw, 25vw"
+                        key={build.id + build.imageUrl} // Force re-render when image changes
                     />
                     <div className={`absolute inset-0 transition-colors duration-300 ${selectedBuild?.id === build.id
                             ? "bg-black/40"

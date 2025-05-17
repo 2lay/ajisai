@@ -8,14 +8,53 @@ import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { api } from "~/trpc/react";
 
+interface NewsItem {
+    image: string;
+    imageAlt: string;
+    category: string;
+    categoryColor: string;
+    title: string;
+    description: string;
+    author: string;
+    authorAvatar: string;
+    date: string;
+    link: string;
+    isViewMore: boolean;
+}
+
+// Cache key for local storage
+const NEWS_CACHE_KEY = 'news_data';
+
 export default function News() {
     const { data: newsData } = api.news.getRecent.useQuery();
-    const newsItems = newsData?.newsItems ?? [];
+    const [cachedNews, setCachedNews] = useState<NewsItem[]>([]);
+
+    // Load cached data on mount and update when new data arrives
+    useEffect(() => {
+        // Try to load from cache first
+        const cached = localStorage.getItem(NEWS_CACHE_KEY);
+        if (cached) {
+            const parsedCache = JSON.parse(cached) as NewsItem[];
+            // Only use cache if no new data
+            if (!newsData?.newsItems) {
+                setCachedNews(parsedCache);
+            }
+        }
+
+        // Always prioritize new data when available
+        if (newsData?.newsItems) {
+            setCachedNews(newsData.newsItems as unknown as NewsItem[]);
+            localStorage.setItem(NEWS_CACHE_KEY, JSON.stringify(newsData.newsItems));
+        }
+    }, [newsData]);
+
+    const newsItems = cachedNews;
 
     let newsLoaded = false;
     if (newsItems.length > 0) {
         newsLoaded = true;
     }
+
     // State for current news slide
     const [currentSlide, setCurrentSlide] = useState(0);
 
