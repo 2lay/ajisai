@@ -40,7 +40,7 @@ export default function Home() {
             },
             layout: "left",
             colors: {
-                text: "text-indigo-100",
+                text: "text-indigo-900 dark:text-indigo-100",
                 dot: "bg-indigo-300",
             },
         },
@@ -67,7 +67,7 @@ export default function Home() {
             },
             layout: "right",
             colors: {
-                text: "text-blue-200",
+                text: "text-blue-900 dark:text-blue-200",
                 dot: "bg-blue-400",
             },
         },
@@ -96,7 +96,7 @@ export default function Home() {
             },
             layout: "left",
             colors: {
-                text: "text-primary-200",
+                text: "text-primary-900 dark:text-primary-200",
                 dot: "bg-primary-400",
             },
         },
@@ -108,10 +108,10 @@ export default function Home() {
     
             {/* Section Header */}
             <div className="flex flex-col items-center justify-center mb-16 ">
-                <h2 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight">
+                <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white/90 tracking-tight">
                     What we offer
                 </h2>
-                <p className="text-lg text-white/70 mt-2">
+                <p className="text-lg text-neutral-900 dark:text-white/70 mt-2">
                     Discover our collection of unique modded Minecraft experiences.
                 </p>
             </div>
@@ -121,7 +121,7 @@ export default function Home() {
                 {features.map((feature, index) => (
                     <div
                         key={index}
-                        className="group relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60 hover:border-neutral-600/80 transition-colors duration-300"
+                        className="group relative overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800/50 backdrop-blur-sm border border-neutral-300 dark:border-neutral-700/60 hover:border-neutral-400 dark:hover:border-neutral-600/80 transition-colors duration-300"
                     >
                         <div
                             className={`relative flex flex-col md:flex-row ${feature.layout === "right" ? "md:flex-row-reverse" : ""
@@ -144,11 +144,11 @@ export default function Home() {
                                 <div>
                                     <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
                                         <feature.icon className={`w-7 h-7 ${feature.iconColor}`} />
-                                        <h3 className="text-2xl font-bold text-white">
+                                        <h3 className="text-2xl font-bold text-neutral-900 dark:text-white">
                                             {feature.title}
                                         </h3>
                                     </div>
-                                    <p className="text-lg text-white/80 mb-4">{feature.description}</p>
+                                    <p className="text-lg text-neutral-800 dark:text-white/80 mb-4">{feature.description}</p>
 
                                     <div
                                         className={`flex flex-wrap justify-center md:justify-start items-center gap-4 ${feature.colors.text} mb-5`}

@@ -45,7 +45,7 @@ export default function Home() {
               <Button
                 variant="default"
                 size="lg"
-                className="backdrop-blur-sm bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl transition-all duration-300"
+                className="backdrop-blur-sm dark:bg-white/10 dark:hover:bg-white/20 border dark:border-white/20 rounded-xl transition-all duration-300"
               >
                 <Link
                   href="/servers"
@@ -73,7 +73,7 @@ export default function Home() {
         </div>
 
         {/* Features Section */}
-        <div className="bg-neutral-900 py-16 border-t border-neutral-800 rounded-t-4xl">
+        <div className="bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 py-16 rounded-t-4xl">
           {/* Section Header */}
 
 
