@@ -40,7 +40,7 @@ export default function Home() {
             },
             layout: "left",
             colors: {
-                text: "text-indigo-900 dark:text-indigo-100",
+                text: "text-indigo-100",
                 dot: "bg-indigo-300",
             },
         },
@@ -67,7 +67,7 @@ export default function Home() {
             },
             layout: "right",
             colors: {
-                text: "text-blue-900 dark:text-blue-200",
+                text: "text-blue-200",
                 dot: "bg-blue-400",
             },
         },
@@ -144,11 +144,11 @@ export default function Home() {
                                 <div>
                                     <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
                                         <feature.icon className={`w-7 h-7 ${feature.iconColor}`} />
-                                        <h3 className="text-2xl font-bold text-neutral-900 dark:text-white">
+                                        <h3 className="text-2xl font-bold dark:text-white">
                                             {feature.title}
                                         </h3>
                                     </div>
-                                    <p className="text-lg text-neutral-800 dark:text-white/80 mb-4">{feature.description}</p>
+                                    <p className="text-lg dark:text-white/80 mb-4">{feature.description}</p>
 
                                     <div
                                         className={`flex flex-wrap justify-center md:justify-start items-center gap-4 ${feature.colors.text} mb-5`}
