@@ -27,6 +27,10 @@ export function Navbar() {
         setIsLoaded(true);
     }, []);
 
+    if (pathname.startsWith('/test')) {
+        return null;
+    }
+
     return (
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-800 ease-in-out opacity-0 border-b border-transparent ${
             isLoaded ? 'opacity-100' : ''
