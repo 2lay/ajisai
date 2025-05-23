@@ -59,7 +59,7 @@ export default function Home() {
             iconColor: "text-blue-400",
             benefits: ["More Homes", "Reduced Cooldowns", "Force Load Chunks"],
             button: {
-                text: "View Store",
+                text: "View Shop",
                 href: "/shop",
                 icon: IconShoppingCart,
                 className:

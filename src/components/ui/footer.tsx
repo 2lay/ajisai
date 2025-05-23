@@ -58,15 +58,17 @@ export default function Footer({ className }: { className?: string }) {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/store" className="text-sm text-white/70 hover:text-white transition-colors">
-                                        Store
+                                    <Link href="/Shop" className="text-sm text-white/70 hover:text-white transition-colors">
+                                        Shop
                                     </Link>
                                 </li>
+                                {/* 
                                 <li>
                                     <Link href="/rules" className="text-sm text-white/70 hover:text-white transition-colors">
                                         Rules
                                     </Link>
                                 </li>
+                                */}
                                 <li>
                                     <Link href="/credits" className="text-sm text-white/70 hover:text-white transition-colors">
                                         Credits

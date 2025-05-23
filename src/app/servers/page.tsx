@@ -3,80 +3,88 @@
 import { IconBrandDiscord, IconDownload } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
+import { type InferSelectModel } from "drizzle-orm"; // Import type inference utility
 
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import Footer from "~/components/ui/footer";
+import { api } from "~/trpc/react"; // Import the server-side tRPC API
+import { type servers as serversSchema } from "~/server/db/schema"; // Import the servers schema
+
+type Server = InferSelectModel<typeof serversSchema>; // Infer the type of a server
 
 // Data structure for server information
-const servers = [
-    {
-        icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
-        version: "1.18.2",
-        title: "Modpack A",
-        players: 120,
-        ip: "127.0.0.1",
-        status: "Online", // Added status
-        downloadLink: "#", // Placeholder link
-    },
-    {
-        icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
-        version: "1.0.8",
-        title: "All the Mods 9",
-        players: 85,
-        ip: "atm9.TMW.gg",
-        status: "Online", // Added status
-        downloadLink: "#", // Placeholder link
-    },
-    {
-        icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
-        version: "1.1.5",
-        title: "All the Mods 9 - To the Sky",
-        players: 210,
-        ip: "atm9tts.TMW.gg",
-        status: "Online", // Added status
-        downloadLink: "#", // Placeholder link
-    },
-    {
-        icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
-        version: "0.9",
-        title: "All the Magic - Arcana",
-        players: 210,
-        ip: "atmarcana.TMW.gg",
-        status: "Online", // Added status
-        downloadLink: "#", // Placeholder link
-    },
-    {
-        icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
-        version: "10.11.0",
-        title: "Create: Ultimate Selection",
-        players: 210,
-        ip: "createus.TMW.gg",
-        status: "Online", // Added status
-        downloadLink: "#", // Placeholder link
-    },
-    {
-        icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
-        version: "B13.3",
-        title: "Techopolis 3",
-        players: 210,
-        ip: "techopolis3.TMW.gg",
-        status: "Online", // Added status
-        downloadLink: "#", // Placeholder link
-    },
-    {
-        icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
-        version: "1.20.3",
-        title: "Craftoria",
-        players: 210,
-        ip: "craftoria.TMW.gg",
-        status: "Online", // Added status
-        downloadLink: "#", // Placeholder link
-    },
+// const servers = [
+//     {
+//         icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
+//         version: "1.18.2",
+//         title: "Modpack A",
+//         players: 120,
+//         ip: "127.0.0.1",
+//         status: "Online", // Added status
+//         downloadLink: "#", // Placeholder link
+//     },
+//     {
+//         icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
+//         version: "1.0.8",
+//         title: "All the Mods 9",
+//         players: 85,
+//         ip: "atm9.TMW.gg",
+//         status: "Online", // Added status
+//         downloadLink: "#", // Placeholder link
+//     },
+//     {
+//         icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
+//         version: "1.1.5",
+//         title: "All the Mods 9 - To the Sky",
+//         players: 210,
+//         ip: "atm9tts.TMW.gg",
+//         status: "Online", // Added status
+//         downloadLink: "#", // Placeholder link
+//     },
+//     {
+//         icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
+//         version: "0.9",
+//         title: "All the Magic - Arcana",
+//         players: 210,
+//         ip: "atmarcana.TMW.gg",
+//         status: "Online", // Added status
+//         downloadLink: "#", // Placeholder link
+//     },
+//     {
+//         icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
+//         version: "10.11.0",
+//         title: "Create: Ultimate Selection",
+//         players: 210,
+//         ip: "createus.TMW.gg",
+//         status: "Online", // Added status
+//         downloadLink: "#", // Placeholder link
+//     },
+//     {
+//         icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
+//         version: "B13.3",
+//         title: "Techopolis 3",
+//         players: 210,
+//         ip: "techopolis3.TMW.gg",
+//         status: "Online", // Added status
+//         downloadLink: "#", // Placeholder link
+//     },
+//     {
+//         icon: "https://i.imgur.com/wH0rHw3.png", // Placeholder image
+//         version: "1.20.3",
+//         title: "Craftoria",
+//         players: 210,
+//         ip: "craftoria.TMW.gg",
+//         status: "Online", // Added status
+//         downloadLink: "#", // Placeholder link
+//     },
 
-];
+// ];
 
-export default function MinecraftServers() {
+export default function MinecraftServers() { // Made the component async
+
+    const { data: servers } = api.servers.getAll.useQuery();
+    
     return (
         <div className="relative min-h-screen">
             {/* Background Image */}
@@ -105,19 +113,19 @@ export default function MinecraftServers() {
 
                     {/* Server List */}
                     <div className="grid gap-10 lg:gap-6 lg:grid-cols-2">
-                        {servers.map((server, index) => (
+                        {servers?.map((server, index) => (
                             <Card key={index} variant="translucent" className="p-6 lg:p-4 rounded-xl bg-neutral-800/50 border border-neutral-700/50 hover:border-neutral-600/50 transition-all duration-300 hover:transform hover:scale-[1.01] flex flex-col lg:flex-row items-start lg:items-center justify-between w-full">
                                 {/* Server Info (Icon, Title, Version, IP) */}
                                 <div className="flex items-start gap-4 sm:gap-6 lg:gap-4 mb-4 lg:mb-0 w-full lg:w-auto flex-row">
                                     <Image
-                                        src={server.icon}
-                                        alt={`${server.title} Icon`}
+                                        src={server.image ?? ""}
+                                        alt={`${server.imageAlt ?? "Server Icon"}`}
                                         width={72}
                                         height={72}
                                         className="rounded-md flex-shrink-0"
                                     />
                                     <div className="flex flex-col items-start justify-center">
-                                        <h3 className="text-2xl lg:text-xl font-semibold text-white mb-2">{server.title}</h3>
+                                        <h3 className="text-2xl lg:text-xl font-semibold text-white mb-2">{server.name}</h3>
                                         <p className="text-lg lg:text-base text-white/80">Version: {server.version}</p>
                                         <p className="text-lg lg:text-base text-white/80">IP: {server.ip}</p>
                                     </div>
@@ -131,7 +139,7 @@ export default function MinecraftServers() {
                                             server.status === 'Offline' ? 'bg-red-500/20 text-red-400' :
                                                 'bg-yellow-500/20 text-yellow-400'}
                                     `}>
-                                        {server.status === 'Online' ? `Online (${server.players}/?)` : server.status}
+                                        {server.status === 'Online' ? `Online (${server.playerCount}/${server.maxPlayers})` : server.status}
                                     </span>
 
                                     {/* Download Button */}
@@ -148,7 +156,7 @@ export default function MinecraftServers() {
                         ))}
                         {/* Suggestion Card */}
                         <Card variant="translucent" className={`p-6 lg:p-4 rounded-xl bg-neutral-800/50 border border-neutral-700/50 hover:border-neutral-600/50 transition-all duration-300 hover:transform hover:scale-[1.01] flex flex-col lg:flex-row items-start lg:items-center justify-between w-full
-                            ${servers.length % 2 === 0 ? 'lg:col-span-2' : ''}
+                            ${servers && servers.length % 2 === 0 ? 'lg:col-span-2' : ''}
                         `}>
                             {/* Server Info (Icon, Title, Version, IP) */}
                             <div className="flex items-start gap-4 sm:gap-6 lg:gap-4 mb-4 lg:mb-0 w-full lg:w-auto flex-row">

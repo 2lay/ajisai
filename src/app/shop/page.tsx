@@ -32,7 +32,7 @@ const features = [
     // Add other commands or features as needed
 ];
 
-export default function Store() {
+export default function Shop() {
     return (
         <>
         
@@ -64,7 +64,7 @@ export default function Store() {
                         </div>
                         <div className="flex-shrink-0">
                             <Button variant="default" size="md" className="">
-                                <Link href="#" className="flex items-center justify-center text-white hover:text-white">
+                                <Link href="/claim" className="flex items-center justify-center text-white hover:text-white">
                                     <IconHelpCircle size={18} className="mr-2" />
                                     Claim rank
                                 </Link>
@@ -187,13 +187,13 @@ export default function Store() {
                         </p>
                         <div className="flex justify-center md:justify-start space-x-4">
                             <Button variant="default" size="lg" className="backdrop-blur-sm bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl transition-all duration-300">
-                                <Link href="#" className="flex items-center text-white hover:text-white">
+                                <Link href="https://patreon.com/tmwgg" className="flex items-center text-white hover:text-white">
                                     <IconBrandPatreon size={22} className="mr-2" />
                                     Patreon
                                 </Link>
                             </Button>
                             <Button variant="default" size="lg" className="backdrop-blur-sm bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl transition-all duration-300">
-                                <Link href="#" className="flex items-center text-white hover:text-white">
+                                <Link href="/claim" className="flex items-center text-white hover:text-white">
                                     <IconHelpCircle size={22} className="mr-2" />
                                     Claim rank Guide
                                 </Link>

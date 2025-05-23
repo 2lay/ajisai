@@ -51,3 +51,20 @@ export const gallery = createTable("gallery", (d) => ({
   createdAt: d.timestamp({ withTimezone: true }).default(sql`CURRENT_TIMESTAMP`).notNull(),
   updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
 }));
+
+export const servers = createTable("servers", (d) => ({
+  id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+  name: d.varchar({ length: 256 }).notNull(),
+  image: d.varchar({ length: 256 }),
+  imageAlt: d.varchar({ length: 256 }),
+  status: d.varchar({ length: 50 }).default("offline"),
+  playerCount: d.integer().default(0),
+  maxPlayers: d.integer().default(20),
+  version: d.varchar({ length: 100 }).default("TMW_VERSION"),
+  modpack: d.varchar({ length: 256 }).default("TMW_MODPACK"),
+  ip: d.varchar({ length: 256 }).default("TMW_IP"),
+  downloadLink: d.varchar({ length: 256 }).default("TMW_DOWNLOAD_LINK"),
+  queryMethod: d.varchar({ length: 256 }).default("Velocity"),
+  createdAt: d.timestamp({ withTimezone: true }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+  updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+}));
