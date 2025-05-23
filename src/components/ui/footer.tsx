@@ -4,7 +4,8 @@ import { IconBrandDiscord, IconBrandGithub, IconBrandTwitter } from "@tabler/ico
 
 export default function Footer({ className }: { className?: string }) {
     return (
-        <div className=" relative">
+        <div className={className}>
+        <div className={`relative`}>
             {/* Main Background Image */}
             <div className="absolute inset-0 z-10 overflow-hidden rounded-3xl">
                 <Image
@@ -122,6 +123,7 @@ export default function Footer({ className }: { className?: string }) {
                     </div>
                 </div>
             </footer>
+        </div>
         </div>
     );
 }

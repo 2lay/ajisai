@@ -9,11 +9,11 @@ import Footer from "~/components/ui/footer";
 
 // Data structure for the table
 const ranks = [
-    { name: "Member", price: "Free", buttonLink: "#", color: "text-white" },
-    { name: "Diamond", price: "$5", buttonLink: "#", color: "text-cyan-400" }, // Example color
-    { name: "Ardite", price: "$15", buttonLink: "#", color: "text-orange-400" }, // Example color
-    { name: "Vibrant", price: "$25", buttonLink: "#", color: "text-lime-400" }, // Example color
-    { name: "Infinity", price: "$50", buttonLink: "#", color: "text-purple-400" }, // Example color
+    { name: "Member", price: "Free", buttonLink: "#", color: "text-white", url: "/servers" },
+    { name: "Diamond", price: "$5", buttonLink: "https://www.patreon.com/checkout/tmwgg?rid=9044095", color: "text-cyan-400", url: "https://www.patreon.com/checkout/tmwgg?rid=9044095" },
+    { name: "Ardite", price: "$15", buttonLink: "https://www.patreon.com/checkout/tmwgg?rid=9924683", color: "text-orange-400", url: "https://www.patreon.com/checkout/tmwgg?rid=9924683" },
+    { name: "Vibrant", price: "$25", buttonLink: "https://www.patreon.com/checkout/tmwgg?rid=9044100", color: "text-lime-400", url: "https://www.patreon.com/checkout/tmwgg?rid=9044100" },
+    { name: "Infinity", price: "$50", buttonLink: "https://www.patreon.com/checkout/tmwgg?rid=9927171", color: "text-purple-400", url: "https://www.patreon.com/checkout/tmwgg?rid=9927171" },
 ];
 
 const features = [
@@ -49,8 +49,8 @@ export default function Store() {
             <div className="bg-neutral-900 py-16 border-t border-neutral-800 px-4 sm:px-6 lg:px-8 pt-20">
                 <div className="max-w-6xl mx-auto">
                     {/* Introductory Text and Buttons */}
-                    <div className="flex justify-between items-center mb-8">
-                        <div>
+                    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-8 gap-4">
+                        <div className="flex-1">
                             <h2 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight mb-4">
                                 Discover our perks!
                             </h2>
@@ -59,10 +59,17 @@ export default function Store() {
                                 Payments are securely processed by <a href="#" className="text-primary-400 hover:underline">Patreon</a> on a monthly basis.
                             </p>
                             <p className="text-md text-white/60">
-                                For help with claiming your rank, please click the <span className="text-primary-400">Claim rank</span> button on the right.
+                                For help with claiming your rank, please click the <span className="text-primary-400">Claim rank</span> button.
                             </p>
                         </div>
-
+                        <div className="flex-shrink-0">
+                            <Button variant="default" size="md" className="">
+                                <Link href="#" className="flex items-center justify-center text-white hover:text-white">
+                                    <IconHelpCircle size={18} className="mr-2" />
+                                    Claim rank
+                                </Link>
+                            </Button>
+                        </div>
                     </div>
 
                     {/* Rank Comparison Table/Grid */}
@@ -121,8 +128,8 @@ export default function Store() {
                                         {ranks.map((rank, index) => (
                                         <td key={index} className="px-4 py-3 text-left text-sm">
                                             <Button variant="default" size="sm" className="backdrop-blur-sm bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl transition-all duration-300">
-                                                <Link href="#" className={`flex items-center ${rank.color} hover:text-white justify-center`}>
-                                                    Purchase {rank.name}
+                                                <Link href={rank.url} className={`flex items-center ${rank.color} hover:text-white justify-center`}>
+                                                    {rank.name === 'Member' ? 'Play now!' : `Purchase ${rank.name}`}
                                                 </Link>
                                             </Button>
                                         </td>
