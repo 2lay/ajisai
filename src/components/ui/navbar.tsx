@@ -44,7 +44,7 @@ export function Navbar() {
                     <div className="flex items-center">
                         <Link href="/" className="text-xl font-semibold text-gray-900">
                             <img 
-                                src="https://media.discordapp.net/attachments/1359535761074163765/1359535939529212176/tmw_logo.png?ex=6824a902&is=68235782&hm=f5edb8acd811b530ca76684f84be2c9c79bbb2dc380942fdeab7d7df806f7adb&=&format=webp&quality=lossless&width=3480&height=1433"
+                                src="https://www.tmw.gg/_next/image?url=%2Flogo.png&w=256&q=75"
                                 alt="TMW Logo"
                                 className="h-10 w-auto"
                             />

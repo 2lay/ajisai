@@ -37,6 +37,10 @@ const config = {
         protocol: 'https',
         hostname: 'mc-heads.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'tmw.gg',
+      },
     ],
   },
 };
